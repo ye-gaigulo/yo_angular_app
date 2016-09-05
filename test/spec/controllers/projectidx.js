@@ -17,7 +17,7 @@ describe('Controller: ProjectidxCtrl', function () {
     });
   }));
 
-  it('should attach a list of awesomeThings to the scope', function () {
-    expect(ProjectidxCtrl.awesomeThings.length).toBe(3);
+  it('should have a ProjectidxCtrl Controller', function () {
+    expect(ctrl).not.to.equal(null);
   });
 });
