@@ -29,7 +29,18 @@ angular
         controller: 'AboutCtrl',
         controllerAs: 'about'
       })
+      .when('/login', {
+        templateUrl: 'views/login.html',
+        controller: 'LoginCtrl',
+        controllerAs: 'login'
+      })
+      .when('/projectIdx', {
+        templateUrl: 'views/projectidx.html',
+        controller: 'ProjectidxCtrl',
+        controllerAs: 'projectIdx'
+      })
       .otherwise({
         redirectTo: '/'
       });
   });
+
