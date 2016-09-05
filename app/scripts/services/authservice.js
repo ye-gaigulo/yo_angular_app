@@ -9,33 +9,36 @@
  */
 angular.module('firstAppApp')
   .service('authService', 
-  	['$http', '$cookieStore', '$rootScope', 
-  	function ($http, $cookieStore, $rootScope) {
+  	['Base64', '$http', '$cookies', '$rootScope', 
+  	function (Base64, $http, $cookies, $rootScope) {
         // AngularJS will instantiate a singleton by calling "new" on this function
 		var service = {};
 
 		service.Login = function(username, password, callback) {
-		/*
-			$timeout(function() {
-				var response = { success: username === 'test' && password === 'test'};
-				if(!response.success){
-					response.message = "Username or password is incorrect";
-				}
-				callback(response);
-			}, 1000);
-		*/
-			var data = { 'username' : username, 'password' : password};
+		//	Base64.miracle(username,password);
+		
+			var data = {'username' : username, 'password' : password};
 
 			$http.post('http://userservice.staging.tangentmicroservices.com/api-token-auth/', data)
-			.success(function(response) {
+			.then(function(response) {
+				// console.log('Successful http post');
+				// console.dir(response.status);
+				service.SetCredentials(username, response.data.token);
 				callback(response);
-			})
-			.error(function(response) {
+			}, function(response) {
+				response.error_msg = "An error has occured";
 				callback(response);
 			});
 	
+		};
+
+		service.SetCredentials = function(username, authToken) {
+			var authData = Base64.encode(authToken);
+			// console.log('Setting the authentication token');
+			$cookies.put('authToken', authData);
 		};	
 
 		return service;	      
       
     }]);
+

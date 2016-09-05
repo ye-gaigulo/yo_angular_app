@@ -34,7 +34,13 @@ angular
         controller: 'LoginCtrl',
         controllerAs: 'login'
       })
+      .when('/projectIdx', {
+        templateUrl: 'views/projectidx.html',
+        controller: 'ProjectidxCtrl',
+        controllerAs: 'projectIdx'
+      })
       .otherwise({
         redirectTo: '/'
       });
   });
+
