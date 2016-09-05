@@ -14,7 +14,7 @@ angular.module('firstAppApp')
 	  	$scope.submit = function() {
 	  		$scope.dataLoading = true;
 	  		authService.Login($scope.username, $scope.password, function(response){
-	  			if(response.status == 200){
+	  			if(response.status === 200){
 	  				$location.path('/projectIdx');
 	  			}else{
 	  				$scope.error = response.error_msg;
