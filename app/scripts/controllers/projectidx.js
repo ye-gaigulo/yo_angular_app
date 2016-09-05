@@ -8,8 +8,9 @@
  * Controller of the firstAppApp
  */
 angular.module('firstAppApp')
-  .controller('ProjectidxCtrl', 
+ .controller('ProjectidxCtrl', 
   	['$scope', '$cookies', 'Base64',  
   	function ($scope, $cookies, Base64) {
-  		console.log(Base64.decode($cookies.get('authToken')));	    
-    }]);
+//  	console.log(Base64.decode($cookies.get('authToken')));	  
+	}]);
+

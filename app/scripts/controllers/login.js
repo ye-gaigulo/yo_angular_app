@@ -15,13 +15,10 @@ angular.module('firstAppApp')
 	  		$scope.dataLoading = true;
 	  		authService.Login($scope.username, $scope.password, function(response){
 	  			if(response.status == 200){
-	  				//console.log($cookies.get('authToken'));
 	  				$location.path('/projectIdx');
-	  				//redirect
 	  			}else{
 	  				$scope.error = response.error_msg;
 	  				$scope.dataLoading = false;
-	  				//display error
 	  			}
 	  		});
 	  	};

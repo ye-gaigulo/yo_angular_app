@@ -18,6 +18,6 @@ describe('Controller: ProjectidxCtrl', function () {
   }));
 
   it('should have a ProjectidxCtrl Controller', function () {
-    expect(ctrl).not.to.equal(null);
+    expect(ProjectidxCtrl).toBeDefined();
   });
 });

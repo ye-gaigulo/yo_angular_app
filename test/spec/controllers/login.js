@@ -17,7 +17,7 @@ describe('Controller: LoginCtrl', function () {
     });
   }));
 
-  it('should attach a list of awesomeThings to the scope', function () {
-    expect(LoginCtrl.awesomeThings.length).toBe(3);
+  it('should have a LoginCtrl Controller', function () {
+    expect(LoginCtrl).toBeDefined();
   });
 });
