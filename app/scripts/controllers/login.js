@@ -9,17 +9,18 @@
  */
 angular.module('firstAppApp')
   .controller('LoginCtrl', 
-  	['$scope', '$rootScope', '$location', 'authService',
+  	['$scope', '$rootScope', '$location', 'authService', 
   	function ($scope, $rootScope, $location, authService) {
-	  	$scope.submit = function() {
-	  		$scope.dataLoading = true;
-	  		authService.Login($scope.username, $scope.password, function(response){
-	  			if(response.status === 200){
-	  				$location.path('/projectIdx');
-	  			}else{
-	  				$scope.error = response.error_msg;
-	  				$scope.dataLoading = false;
-	  			}
-	  		});
+
+  		$scope.submit = function() {
+  			authService.Login($scope.username, $scope.password)
+  			.then(function () {
+				$location.path('/projectIdx');
+			})
+			.catch(function (response) {
+				if (response.non_field_errors) {
+				//set errors
+				}
+			});
 	  	};
     }]);

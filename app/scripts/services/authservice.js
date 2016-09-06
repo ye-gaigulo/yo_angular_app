@@ -9,32 +9,41 @@
  */
 angular.module('firstAppApp')
   .service('authService', 
-  	['Base64', '$http', '$cookies', '$rootScope', 
-  	function (Base64, $http, $cookies, $rootScope) {
+  	['$http', '$cookies', '$q', 'AUTH_SERVICE_BASE_URI',	
+  	function ( $http, $cookies, $q, AUTH_SERVICE_BASE_URI) {
         // AngularJS will instantiate a singleton by calling "new" on this function
-		var service = {};
+		var apiService = this;
 
-		service.Login = function(username, password, callback) {
+		apiService.Login = function(username, password) {
 				
+			var deferred = $q.defer();
+			var url = AUTH_SERVICE_BASE_URI + 'api-token-auth/';
+			
 			var data = {'username' : username, 'password' : password};
 
-			$http.post('http://userservice.staging.tangentmicroservices.com/api-token-auth/', data)
-			.then(function(response) {
-				service.SetCredentials(username, response.data.token);
-				callback(response);
-			}, function(response) {
-				response.error_msg = "An error has occured";
-				callback(response);
+			$http.post(url, data)
+			.success(function(response, status, headers, config) {
+				if(response.token){
+					apiService.setToken(response.token);
+				}
+				deferred.resolve(response, status, headers, config);
+			}).error(function(response, status, headers, config) {
+				deferred.reject(response, status, headers, config);
 			});
+			return deferred.promise;
 		};
 
-		service.SetCredentials = function(username, authToken) {
-			var authData = Base64.encode(authToken);
-			
-			$cookies.put('authToken', authData);
-		};	
+		apiService.logout = function(){
+            $cookies.remove('token');
+        };
 
-		return service;	      
-      
+        apiService.setToken = function (token) {
+            $cookies.put('token', token);
+        };
+
+        apiService.getToken = function () {
+            return $cookies.get('token');
+
+};
     }]);
 
