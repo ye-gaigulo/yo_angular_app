@@ -6,7 +6,7 @@ describe('Controller: ProjectidxCtrl', function () {
   beforeEach(module('firstAppApp'));
 
   var ProjectidxCtrl,
-    scope;
+      scope;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {
