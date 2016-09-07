@@ -1,23 +1,23 @@
 'use strict';
 
-describe('Controller: ProjectidxCtrl', function () {
+describe('Controller: ProjectCtrl', function () {
 
   // load the controller's module
   beforeEach(module('firstAppApp'));
 
-  var ProjectidxCtrl,
+  var ProjectCtrl,
       scope;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
-    ProjectidxCtrl = $controller('ProjectidxCtrl', {
+    ProjectCtrl = $controller('ProjectCtrl', {
       $scope: scope
       // place here mocked dependencies
     });
   }));
 
-  it('should have a ProjectidxCtrl Controller', function () {
-    expect(ProjectidxCtrl).toBeDefined();
+  it('should have a ProjectCtrl Controller', function () {
+    expect(ProjectCtrl).toBeDefined();
   });
 });

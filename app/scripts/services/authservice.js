@@ -8,18 +8,21 @@
  * Service in the firstAppApp.
  */
 angular.module('firstAppApp')
-  .service('authService', 
-  	['$http', '$cookies', '$q', 'AUTH_SERVICE_BASE_URI',	
+  .service('authService',
+  	['$http', '$cookies', '$q', 'AUTH_SERVICE_BASE_URI',
   	function ( $http, $cookies, $q, AUTH_SERVICE_BASE_URI) {
         // AngularJS will instantiate a singleton by calling "new" on this function
 		var apiService = this;
 
 		apiService.Login = function(username, password) {
-				
+
 			var deferred = $q.defer();
 			var url = AUTH_SERVICE_BASE_URI + 'api-token-auth/';
-			
-			var data = {'username' : username, 'password' : password};
+
+			var data = {
+                    'username' : username,
+                    'password' : password
+                 };
 
 			$http.post(url, data)
 			.success(function(response, status, headers, config) {
@@ -46,4 +49,3 @@ angular.module('firstAppApp')
 
 };
     }]);
-

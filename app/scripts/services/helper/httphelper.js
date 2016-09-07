@@ -9,12 +9,12 @@
  */
 angular.module('firstAppApp')
   .service('httpHelper', 
-  	['$http', '$location', 'authService',
-  	function ($http, $location, authService) {
+  	['$http', '$location', '$filter', 'authService',
+  	function ($http, $location, $filter, authService) {
       // AngularJS will instantiate a singleton by calling "new" on this function
       var httpHelper = {};
       var headers = {
-      					'Content-Type': 'applicatoin/json',
+      					'Content-Type': 'application/json',
       					'Authorization': authService.getToken()	
       				};
 
@@ -34,13 +34,14 @@ angular.module('firstAppApp')
       	return $http({
       		method: 'POST',
       		url: url,
-      		data: data,
+      		data: data.project,
       		headers: headers
       	});
       };				
 
-      httpHelper.delete = function(url, id) {
-      	if(angular.isDefined(id)){
+      httpHelper.delete = function(url, data) {
+      	if(angular.isDefined(data.id)){
+      		var id = data.id;
       		url += id + '/';
       	}
       	return $http({
@@ -49,6 +50,34 @@ angular.module('firstAppApp')
       		headers: headers
       	});	
       };
+
+      httpHelper.update = function (url, data) {
+
+      	if(angular.isDefined(data.id)){
+      		var id = data.id;
+      		url += id + '/';
+      	}
+
+       return $http({
+      	 	method: 'PUT',
+      	 	url: url,
+      	 	data: data.project,
+      	 	headers: headers
+      	});			
+
+      };
+      
+      httpHelper.dateToString = function (dateDate) {
+      	var date = $filter('date')(dateDate, 'yyyy-MM-dd');
+
+      	return date;
+      }
+
+      httpHelper.stringToDate = function (stringDate) {
+      	var date = new Date(stringDate);
+
+      	return date;
+      }
       
       return httpHelper;
 
