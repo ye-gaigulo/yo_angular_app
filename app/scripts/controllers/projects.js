@@ -11,11 +11,14 @@ angular.module('firstAppApp')
     .controller('ProjectsCtrl', ['$scope', '$window', '$location', 'projectService',
         function($scope, $window, $location, projectService) {
 
-            var init = function(){
-                getProjects();
+            var projects = this;
+
+            projects.init = function(){
+                $scope.projects = [];
+                projects.getProjects();
             };
 
-            var getProjects = function(){
+            projects.getProjects = function(){
               projectService.GetProjects()
                   .then(function(response) {
                       $scope.projects = response.data;
@@ -26,7 +29,6 @@ angular.module('firstAppApp')
             };
 
             $scope.editProject = function(id) {
-
                 $location.path('/project/' + id);
             };
 
@@ -37,15 +39,14 @@ angular.module('firstAppApp')
                 if (deleteProject) {
                     projectService.DeleteProject(id)
                         .then(function() {
-                            init();
+                            projects.init();
                         })
                         .catch(function(response) {
                             console.log(response);
                         });
                 }
-
             };
 
-            init();
+            projects.init();
         }
     ]);

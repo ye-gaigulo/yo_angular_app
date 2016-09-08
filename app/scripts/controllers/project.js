@@ -11,7 +11,8 @@ angular.module('firstAppApp')
     .controller('ProjectCtrl', ['$scope', '$window', '$location', 'projectService', '$route', '$routeParams', 'httpHelper',
         function($scope, $window, $location, projectService, $route, $routeParams, httpHelper) {
 
-            var id = $routeParams.id;
+            var project = this;
+                project.id = $routeParams.id;
 
             $scope.project = {
                 is_billable: true,
@@ -19,7 +20,7 @@ angular.module('firstAppApp')
 
             };
 
-            var getProject = function(id) {
+            project.getProject = function(id) {
                 projectService.GetProject(id)
                     .then(function(response) {
                         $scope.project = response.data;
@@ -33,12 +34,12 @@ angular.module('firstAppApp')
                     });
             };
 
-            if (id) {
+            if (project.id) {
                 //edit
                 $scope.mode = 'Edit';
                 $scope.formTitle = 'Edit Project';
                //Get the project to Edit
-                getProject(id);
+                project.getProject(project.id);
 
             } else {
                 //create
@@ -48,10 +49,14 @@ angular.module('firstAppApp')
 
             $scope.submit = function() {
                 var project = $scope.project;
-                if ($scope.mode === 'Edit') {
 
-                    project.start_date = httpHelper.dateToString(project.start_date);
+                project.start_date = httpHelper.dateToString(project.start_date);
+                if(project.end_date){
                     project.end_date = httpHelper.dateToString(project.end_date);
+                }
+
+
+                if ($scope.mode === 'Edit') {
 
                     projectService.UpdateProject(project)
                         .then(function() {
@@ -61,9 +66,6 @@ angular.module('firstAppApp')
                             console.log(response);
                         });
                 } else {
-
-                    project.start_date = httpHelper.dateToString(project.start_date);
-                    project.end_date = httpHelper.dateToString(project.end_date);
 
                     projectService.CreateProject(project)
                         .then(function() {

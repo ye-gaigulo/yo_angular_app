@@ -6,45 +6,36 @@ describe('Controller: ProjectsCtrl', function () {
   beforeEach(module('firstAppApp'));
 
   var ProjectsCtrl,
-      scope;
+      $rootScope,
+      $scope,
+      $controller,
+      $httpBackend,
+      $location;
 
   // Initialize the controller and a mock scope
-  beforeEach(inject(function ($controller, $rootScope) {
-    scope = $rootScope.$new();
+  beforeEach(inject(function (_$rootScope_, _$controller_, _$httpBackend_, _$location_) {
+    $rootScope = _$rootScope_;
+    $scope = _$rootScope_.$new();
+    $controller = _$controller_;
+    $httpBackend = _$httpBackend_;
+    $location = _$location_;
+
+
     ProjectsCtrl = $controller('ProjectsCtrl', {
-      $scope: scope
+      $scope: $scope
       // place here mocked dependencies
     });
+
   }));
 
-  it('should have a ProjectsCtrl Controller', function () {
-    expect(ProjectsCtrl).toBeDefined();
+  it('should have a projects index', function () {
+
+    $httpBackend.whenGET(/^.*/).respond(200, '');
+    $rootScope.$digest();
+
+    expect($scope.projects.length).toBe(0);
+
+    ProjectsCtrl.init();
   });
+
 });
-
-
-
-
-
-
-
-
-
- // EditprojectCtrl = $controller('EditprojectCtrl', {
- //      $scope: scope
- //      // place here mocked dependencies
- //    });
-
- //    CreateprojectCtrl = $controller('CreateprojectCtrl', {
- //      $scope: scope
- //      // place here mocked dependencies
- //    });
-
-
- //     it('should have a EditprojectCtrl Controller', function () {
- //    expect(EditprojectCtrl).toBeDefined();
- //  });
-
- //  it('should have a CreateprojectCtrl Controller', function () {
- //    expect(CreateprojectCtrl).toBeDefined();
- //  });
