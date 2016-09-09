@@ -37,7 +37,11 @@ angular.module('firstAppApp')
 		};
 
 		apiService.logout = function(){
+          // empty out all the cookie valuess
+          // return to the log in page
+          // empty out all session data
             $cookies.remove('token');
+            // $location.path('/');
         };
 
         apiService.setToken = function (token) {

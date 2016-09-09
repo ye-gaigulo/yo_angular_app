@@ -34,12 +34,12 @@ angular
       .when('/project/:id', {
         templateUrl: 'views/project.html',
         controller: 'ProjectCtrl',
-        controllerAs: 'editProject'
+        controllerAs: 'project'
       })
-      .when('/createProject', {
+      .when('/project', {
         templateUrl: 'views/project.html',
         controller: 'ProjectCtrl',
-        controllerAs: 'createProject'
+        controllerAs: 'project'
       })
       .otherwise({
         redirectTo: '/'

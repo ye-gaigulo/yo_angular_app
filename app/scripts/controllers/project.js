@@ -12,7 +12,7 @@ angular.module('firstAppApp')
         function($scope, $window, $location, projectService, $route, $routeParams, httpHelper) {
 
             var project = this;
-                project.id = $routeParams.id;
+            project.id = $routeParams.id;
 
             $scope.project = {
                 is_billable: true,
@@ -20,26 +20,25 @@ angular.module('firstAppApp')
 
             };
 
-            project.getProject = function(id) {
-                projectService.GetProject(id)
-                    .then(function(response) {
-                        $scope.project = response.data;
-                        $scope.project.start_date = httpHelper.stringToDate($scope.project.start_date);
-                        if (angular.isDefined($scope.project.end_date)) {
-                            $scope.project.end_date = httpHelper.stringToDate($scope.project.end_date);
-                        }
-                    })
-                    .catch(function(response) {
-                        console.log(response);
-                    });
-            };
+            projectService.GetProject(project.id)
+                .then(function(response) {
+                    $scope.project = response.data;
+                    $scope.project.start_date = httpHelper.stringToDate($scope.project.start_date);
+                    if (angular.isDefined($scope.project.end_date)) {
+                        $scope.project.end_date = httpHelper.stringToDate($scope.project.end_date);
+                    }
+                })
+                .catch(function(response) {
+                    console.log(response);
+                });
+
 
             if (project.id) {
                 //edit
                 $scope.mode = 'Edit';
                 $scope.formTitle = 'Edit Project';
-               //Get the project to Edit
-                project.getProject(project.id);
+                //Get the project to Edit
+                projectService.GetProject(project.id);
 
             } else {
                 //create
@@ -50,8 +49,9 @@ angular.module('firstAppApp')
             $scope.submit = function() {
                 var project = $scope.project;
 
+                console.log('check 1 2 check');
                 project.start_date = httpHelper.dateToString(project.start_date);
-                if(project.end_date){
+                if (project.end_date) {
                     project.end_date = httpHelper.dateToString(project.end_date);
                 }
 
