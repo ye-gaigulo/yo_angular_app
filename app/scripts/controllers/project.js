@@ -67,7 +67,8 @@ angular.module('firstAppApp')
 
                     projectService.UpdateProject(projectObject)
                         .then(function() {
-                            $location.path('/projects');
+                            // manage page state
+                            project.success = true;
                         })
                         .catch(function(response) {
                             console.log(response);
@@ -75,12 +76,16 @@ angular.module('firstAppApp')
                 } else {
                     projectService.CreateProject(projectObject)
                         .then(function() {
-                            $location.path('/projects');
+                            // manage page state
+                            project.success = true;
                         })
                         .catch(function(response) {
                             console.log(response);
                         });
                 }
-            };
+
+                //check that the pass variables are set and change page location.
+                $location.path('/projects');
+          };
         }
     ]);
