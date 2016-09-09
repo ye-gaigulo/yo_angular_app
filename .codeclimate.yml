@@ -3,6 +3,11 @@ languages:
 engines:
   duplication:
     enabled: true
+    exclude_fingerprints:
+    - 6dc36fee24403c0e661080c38588e3bd #project.js projectService.UpdateProject
+    - 6dc36fee24403c0e661080c38588e3bd #project.js projectService.CreateProject
+    - 4a92fb7db5a36f5d6b5f31d2627c120b #httphelper.js httpHelper.get
+    - 4a92fb7db5a36f5d6b5f31d2627c120b #httphelper.js httpHelper.delete
     config:
       languages:
       - javascript

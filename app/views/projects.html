@@ -1,0 +1,31 @@
+
+<table id="projectsList" class="table table-striped table-bordered" cellspacing="0" width="100%">
+	<thead>
+		<tr>
+        	<th>PK</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Active</th>
+            <th>Billable</th>
+            <th></th>
+            <th></th>
+		</tr>
+	</thead>
+	<tbody ng-repeat="project in projects" >
+		<tr>
+			<td>{{project.pk}}</td>
+			<td>{{project.title}}</td>
+			<td>{{project.description}}</td>
+			<td>{{project.start_date}}</td>
+			<!-- use an expression / filter to determine whether the field is null -->
+			<td>{{project.end_date}}</td>
+			<td>{{project.is_active}}</td>
+			<td>{{project.is_billable}}</td>
+			<td><button ng-click="editProject(project.pk)">edit</a></td>
+			<td><button ng-click="deleteProject(project.pk)">delete</button></td>
+		</tr>
+
+	</tbody>
+</table>
