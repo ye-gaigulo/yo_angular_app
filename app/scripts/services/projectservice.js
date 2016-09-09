@@ -13,27 +13,28 @@ angular.module('firstAppApp')
             // AngularJS will instantiate a singleton by calling "new" on this function
             var projectAPI = this;
             var data = {};
-
+            var concatUrl;
             var url = PROJECT_SERVICE_BASE_URI + 'projects/';
 
             projectAPI.CreateProject = function(data) {
-
                 return httpHelper.create(url, data);
             };
 
             projectAPI.GetProjects = function() {
-
                 return httpHelper.get(url, data);
             };
 
             projectAPI.GetProject = function(data) {
+                // concatUrl = projectAPI.setUrl(data.pk);
+                // console.log('concatUrl: ' + concatUrl);
                 return httpHelper.get(url, data);
             };
-
             projectAPI.DeleteProject = function(data) {
                 return httpHelper.delete(url, data);
             };
             projectAPI.UpdateProject = function(data) {
+              // console.log('In the projectservice.js projectAPI.UpdateProject function');
+             //console.log(url);
                 return httpHelper.update(url, data);
             };
         }
