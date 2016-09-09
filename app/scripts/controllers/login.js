@@ -10,7 +10,7 @@
 angular.module('firstAppApp')
     .controller('LoginCtrl', ['$scope', '$rootScope', '$location', 'authService',
         function($scope, $rootScope, $location, authService) {
-          $scope.errorMessage = '';
+            $scope.errorMessage = '';
 
             $scope.submit = function() {
                 authService.Login($scope.username, $scope.password)

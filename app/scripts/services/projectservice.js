@@ -16,11 +16,7 @@ angular.module('firstAppApp')
 
             var url = PROJECT_SERVICE_BASE_URI + 'projects/';
 
-            projectAPI.CreateProject = function(project) {
-
-                var data = {
-                    'project': project
-                };
+            projectAPI.CreateProject = function(data) {
 
                 return httpHelper.create(url, data);
             };
@@ -30,27 +26,14 @@ angular.module('firstAppApp')
                 return httpHelper.get(url, data);
             };
 
-            projectAPI.GetProject = function(id) {
-                var data = {
-                    'id': id
-                };
-
+            projectAPI.GetProject = function(data) {
                 return httpHelper.get(url, data);
             };
 
-            projectAPI.DeleteProject = function(id) {
-                var data = {
-                    'id': id
-                };
-
+            projectAPI.DeleteProject = function(data) {
                 return httpHelper.delete(url, data);
             };
-            projectAPI.UpdateProject = function(project) {
-                var data = {
-                    'id': project.pk,
-                    'project': project
-                };
-
+            projectAPI.UpdateProject = function(data) {
                 return httpHelper.update(url, data);
             };
         }

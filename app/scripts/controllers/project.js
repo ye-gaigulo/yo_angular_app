@@ -11,8 +11,13 @@ angular.module('firstAppApp')
     .controller('ProjectCtrl', ['$scope', '$window', '$location', 'projectService', '$route', '$routeParams', 'httpHelper',
         function($scope, $window, $location, projectService, $route, $routeParams, httpHelper) {
 
-            var project = this;
-            project.id = $routeParams.id;
+            var project = this,
+                projectObject = {
+                    'pk': '',
+                    'model': {}
+                };
+
+            projectObject.pk = $routeParams.id;
 
             $scope.project = {
                 is_billable: true,
@@ -20,25 +25,26 @@ angular.module('firstAppApp')
 
             };
 
-            projectService.GetProject(project.id)
-                .then(function(response) {
-                    $scope.project = response.data;
-                    $scope.project.start_date = httpHelper.stringToDate($scope.project.start_date);
-                    if (angular.isDefined($scope.project.end_date)) {
-                        $scope.project.end_date = httpHelper.stringToDate($scope.project.end_date);
-                    }
-                })
-                .catch(function(response) {
-                    console.log(response);
-                });
+            project.getProject = function(data) {
+                projectService.GetProject(data)
+                    .then(function(response) {
+                        $scope.project = response.data;
+                        $scope.project.start_date = httpHelper.stringToDate($scope.project.start_date);
+                        if (angular.isDefined($scope.project.end_date)) {
+                            $scope.project.end_date = httpHelper.stringToDate($scope.project.end_date);
+                        }
+                    })
+                    .catch(function(response) {
+                        console.log(response);
+                    });
+            };
 
-
-            if (project.id) {
+            if (projectObject.pk) {
                 //edit
                 $scope.mode = 'Edit';
                 $scope.formTitle = 'Edit Project';
                 //Get the project to Edit
-                projectService.GetProject(project.id);
+                project.getProject(projectObject);
 
             } else {
                 //create
@@ -47,18 +53,19 @@ angular.module('firstAppApp')
             }
 
             $scope.submit = function() {
-                var project = $scope.project;
+                projectObject.model = $scope.project;
 
-                console.log('check 1 2 check');
-                project.start_date = httpHelper.dateToString(project.start_date);
-                if (project.end_date) {
-                    project.end_date = httpHelper.dateToString(project.end_date);
+                projectObject.model.start_date = httpHelper.dateToString(projectObject.model.start_date);
+                if (projectObject.model.end_date) {
+                    projectObject.model.end_date = httpHelper.dateToString(projectObject.model.end_date);
                 }
 
+                // console.log(projectObject);
+                // debugger;
 
                 if ($scope.mode === 'Edit') {
 
-                    projectService.UpdateProject(project)
+                    projectService.UpdateProject(projectObject)
                         .then(function() {
                             $location.path('/projects');
                         })
@@ -66,8 +73,7 @@ angular.module('firstAppApp')
                             console.log(response);
                         });
                 } else {
-
-                    projectService.CreateProject(project)
+                    projectService.CreateProject(projectObject)
                         .then(function() {
                             $location.path('/projects');
                         })

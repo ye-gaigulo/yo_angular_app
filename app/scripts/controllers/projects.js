@@ -11,21 +11,25 @@ angular.module('firstAppApp')
     .controller('ProjectsCtrl', ['$scope', '$window', '$location', 'projectService',
         function($scope, $window, $location, projectService) {
 
-            var projects = this;
+            var projects = this,
+                projectObject = {
+                    'pk': '',
+                    'model': {}
+                };
 
-            projects.init = function(){
+            projects.init = function() {
                 $scope.projects = [];
                 projects.getProjects();
             };
 
-            projects.getProjects = function(){
-              projectService.GetProjects()
-                  .then(function(response) {
-                      $scope.projects = response.data;
-                  })
-                  .catch(function(response) {
-                      console.log(response.data);
-                  });
+            projects.getProjects = function() {
+                projectService.GetProjects()
+                    .then(function(response) {
+                        $scope.projects = response.data;
+                    })
+                    .catch(function(response) {
+                        console.log(response.data);
+                    });
             };
 
             $scope.editProject = function(id) {
@@ -37,7 +41,8 @@ angular.module('firstAppApp')
                 var deleteProject = $window.confirm('Are you sure you want to delete?');
 
                 if (deleteProject) {
-                    projectService.DeleteProject(id)
+                    projectObject.pk = id;
+                    projectService.DeleteProject(projectObject)
                         .then(function() {
                             projects.init();
                         })
