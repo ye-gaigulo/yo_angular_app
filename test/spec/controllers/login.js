@@ -27,6 +27,7 @@ describe('Controller: LoginCtrl', function() {
     }));
 
     it('should successfully log in', function() {
+
         $httpBackend.expectPOST('http://userservice.staging.tangentmicroservices.com/api-token-auth/').respond({
             'token': '71456dbd15de0c0b6d2b4b44e5a92ad94c6def97'
         });
@@ -38,6 +39,7 @@ describe('Controller: LoginCtrl', function() {
 
         $httpBackend.flush();
 
+        expect(LoginCtrl.loggedIn).toBe(true);
         expect($location.url()).toBe('/projects');
     });
 
@@ -55,7 +57,7 @@ describe('Controller: LoginCtrl', function() {
 
       $httpBackend.flush();
 
+      expect(LoginCtrl.loggedIn).toBe(false);
       expect($scope.errorMessage).toBe('Unable to login with provided credentials.');
-
     });
 });

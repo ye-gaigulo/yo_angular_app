@@ -25,6 +25,17 @@ angular.module('firstAppApp')
 
             };
 
+            project.createProject = function(data) {
+                projectService.CreateProject(projectObject)
+                    .then(function() {
+                        // manage page state
+                        project.success = true;
+                    })
+                    .catch(function(response) {
+                        console.log('Failed uploading create: ' + response);
+                    });
+            };
+
             project.getProject = function(data) {
                 projectService.GetProject(data)
                     .then(function(response) {
@@ -55,13 +66,12 @@ angular.module('firstAppApp')
             $scope.submit = function() {
                 projectObject.model = $scope.project;
 
+                // console.log(projectObject);
                 projectObject.model.start_date = httpHelper.dateToString(projectObject.model.start_date);
                 if (projectObject.model.end_date) {
                     projectObject.model.end_date = httpHelper.dateToString(projectObject.model.end_date);
                 }
 
-                // console.log(projectObject);
-                // debugger;
 
                 if ($scope.mode === 'Edit') {
 
@@ -71,21 +81,14 @@ angular.module('firstAppApp')
                             project.success = true;
                         })
                         .catch(function(response) {
-                            console.log(response);
+                            console.log('Failed uploading update: ' + response);
                         });
                 } else {
-                    projectService.CreateProject(projectObject)
-                        .then(function() {
-                            // manage page state
-                            project.success = true;
-                        })
-                        .catch(function(response) {
-                            console.log(response);
-                        });
+                    project.createProject(projectObject);
                 }
 
                 //check that the pass variables are set and change page location.
                 $location.path('/projects');
-          };
+            };
         }
     ]);

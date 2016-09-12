@@ -11,8 +11,20 @@ describe('Controller: ProjectCtrl', function() {
         $rootScope,
         $scope,
         $controller,
-        $httpBackend;
-
+        $httpBackend,
+        mockProject = {
+                        'pk': 125,
+                        'Title': 'Test Title',
+                        'Description': 'This is a test description',
+                        'start_date': '2016-10-25',
+                        'end_date': '2016-11-11',
+                        'is_active': true,
+                        'is_billable': true
+                     },
+        projectObject = {
+                        'pk': undefined,
+                        'model': {}
+        };
         // Initialize the controller and a mock scope
         beforeEach(inject(function(_$rootScope_, _$controller_, _$httpBackend_, _$q_) {
             $rootScope = _$rootScope_;
@@ -26,7 +38,7 @@ describe('Controller: ProjectCtrl', function() {
 
     describe('The edit a function procedure', function() {
 
-        it('should return a project', function() {
+        it('should return pass a project Primary Key', function() {
             ProjectCtrl = $controller('ProjectCtrl', {
                 $scope: $scope,
                 $routeParams: {
@@ -34,11 +46,7 @@ describe('Controller: ProjectCtrl', function() {
                 }
             });
 
-
-            // expect(ProjectCtrl.id).toBe(125);
-            // var ProjectService = projectService
             // spyOn(ProjectService, 'GetProject');
-
         });
 
 
@@ -57,6 +65,7 @@ describe('Controller: ProjectCtrl', function() {
             $httpBackend.whenGET(/^.*/).respond(200, '');
             $rootScope.$digest();
 
+
             ProjectCtrl = $controller('ProjectCtrl', {
                 $scope: $scope,
                 $routeParams: {
@@ -64,9 +73,7 @@ describe('Controller: ProjectCtrl', function() {
                 }
             });
 
-            //spyOn(ProjectCtrl, "getProject");
-
-
+            spyOn(ProjectCtrl, 'getProject');
 
             expect($scope.project).toBeDefined();
             expect($scope.project.is_billable).toBe(true);
@@ -79,13 +86,15 @@ describe('Controller: ProjectCtrl', function() {
             // .respond(mockProject);
             //
             // $httpBackend.flush();
-            // ProjectCtrl.getProject(125);
+             ProjectCtrl.getProject(125);
 
-            //expect(ProjectCtrl.getProject).toHaveBeenCalledWith(125);
+            expect(ProjectCtrl.getProject).toHaveBeenCalledWith(125);
+            // expect($scope.project.title).toBeDefined();
         });
     });
 
     describe('The create a project procedure', function() {
+
 
         it('should open a form for a new project', function() {
             ProjectCtrl = $controller('ProjectCtrl', {
@@ -97,7 +106,18 @@ describe('Controller: ProjectCtrl', function() {
         });
 
         it('should submit a new project', function() {
+          ProjectCtrl = $controller('ProjectCtrl', {
+              $scope: $scope
+          });
 
+          spyOn(ProjectCtrl, 'createProject');
+          // $httpBackend.expectPOST('http://projectservice.staging.tangentmicroservices.com/api/v1/projects/')
+          // .respond();
+          projectObject.model = mockProject;
+          $scope.project = mockProject;
+          $scope.submit();
+
+          expect(ProjectCtrl.createProject).toHaveBeenCalledWith(projectObject);
         });
     });
 
