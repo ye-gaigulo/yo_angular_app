@@ -25,17 +25,16 @@ angular.module('firstAppApp')
 
             };
 
-            project.createProject = function(data) {
-                projectService.CreateProject(projectObject)
-                    .then(function() {
-                        // manage page state
-                        project.success = true;
-                    })
-                    .catch(function(response) {
-                        console.log('Failed uploading create: ' + response);
-                    });
+            project.createProject = function (data) {
+              projectService.CreateProject(data)
+                  .then(function() {
+                      // manage page state
+                      project.success = true;
+                  })
+                  .catch(function(response) {
+                      console.log('Failed uploading create: ' +response);
+                  });
             };
-
             project.getProject = function(data) {
                 projectService.GetProject(data)
                     .then(function(response) {
@@ -84,11 +83,11 @@ angular.module('firstAppApp')
                             console.log('Failed uploading update: ' + response);
                         });
                 } else {
-                    project.createProject(projectObject);
+                    project.createProject(projectObject)
                 }
 
                 //check that the pass variables are set and change page location.
                 $location.path('/projects');
-            };
+          };
         }
     ]);

@@ -6,11 +6,15 @@ engines:
     exclude_fingerprints:
     - 6dc36fee24403c0e661080c38588e3bd #project.js projectService.UpdateProject
     - 6dc36fee24403c0e661080c38588e3bd #project.js projectService.CreateProject
+    - 20dac34c5af1357c8c8283532cbd3b78 #project.js project.createProject
+    - 20dac34c5af1357c8c8283532cbd3b78 #project.js projectService.UpdateProject
     - 4a92fb7db5a36f5d6b5f31d2627c120b #httphelper.js httpHelper.get
     - 4a92fb7db5a36f5d6b5f31d2627c120b #httphelper.js httpHelper.delete
+
     config:
       languages:
-      - javascript
+      - javascript:
+          mass_threshold: 20
   eslint:
     enabled: true
   fixme:
