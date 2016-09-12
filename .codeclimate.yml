@@ -12,8 +12,8 @@ engines:
 
     config:
       languages:
-      - javascript:
-          mass_threshold: 20
+       javascript:
+        mass_threshold: 20
   eslint:
     enabled: true
   fixme:
