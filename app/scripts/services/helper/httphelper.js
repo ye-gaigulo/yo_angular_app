@@ -22,7 +22,6 @@ angular.module('firstAppApp')
 
                 url = httpHelper.setUrl(url, data);
 
-
                 return $http({
                     method: 'GET',
                     url: url,
@@ -31,6 +30,7 @@ angular.module('firstAppApp')
             };
 
             httpHelper.create = function(url, data) {
+
                 return $http({
                     method: 'POST',
                     url: url,
@@ -42,6 +42,7 @@ angular.module('firstAppApp')
             httpHelper.delete = function(url, data) {
 
                 url = httpHelper.setUrl(url, data);
+
                 return $http({
                     method: 'DELETE',
                     url: url,
@@ -52,6 +53,7 @@ angular.module('firstAppApp')
             httpHelper.update = function(url, data) {
 
                 url = httpHelper.setUrl(url, data);
+
                 return $http({
                     method: 'PUT',
                     url: url,
@@ -82,6 +84,5 @@ angular.module('firstAppApp')
             };
 
             return httpHelper;
-
         }
     ]);

@@ -54,10 +54,10 @@ describe('Controller: ProjectsCtrl', function() {
 
     it('should delete a project', inject(function(projectService) {
 
-        spyOn(projectService, 'DeleteProject');
+        // spyOn(projectService, 'DeleteProject');
         $scope.deleteProject(mockProject.pk);
 
-        // expect(response.status).toBe(204);
+        // expect(projectService.DeleteProject).to
     }));
 
 });

@@ -1,18 +1,21 @@
 'use strict';
 
-describe('Service: projectService', function () {
+describe('Service: projectService', function() {
 
-  // load the service's module
-  beforeEach(module('firstAppApp'));
+    // load the service's module
+    beforeEach(module('firstAppApp'));
 
-  // instantiate service
-  var projectService;
-  beforeEach(inject(function (_projectService_) {
-    projectService = _projectService_;
-  }));
+    // instantiate service
+    var projectService,
+        $httpBackend;
 
-  it('should do something', function () {
-    expect(!!projectService).toBe(true);
-  });
+    beforeEach(inject(function(_projectService_, _$httpBackend_) {
+        projectService = _projectService_;
+        $httpBackend = _$httpBackend_;
+    }));
+
+    it('should get a list of projects', function() {
+                        
+    });
 
 });
